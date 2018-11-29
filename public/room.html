@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="app.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Chakra+Petch|Roboto"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+    <script src="room.js"></script>
+    <script src="anime/anime.min.js"></script>
+    <title>WebRTC</title>
+  </head>
+
+  <body>
+    <div class="videoDisplay">
+      <div class="vidContainer" data-view="containerHalf">
+        <div class="vidSmallContainer">
+          <video
+            class="localVideo"
+            data-view="half"
+            muted
+            autoplay
+            playsinline
+          ></video>
+        </div>
+      </div>
+      <div class="placeholder">
+        <div class="waiting">waiting to connect...</div>
+        <div class="imgContainer">
+          <img src="/images/silhouette.png" alt="placeholder" />
+        </div>
+      </div>
+    </div>
+    <div class="controlWrapper">
+      <button class="handleAudio"><i class="fas fa-microphone-alt"></i></button>
+      <button class="handleVideo"><i class="fas fa-video"></i></button>
+      <button class="callBtn"><i class="fas fa-phone"></i></button>
+      <button class="endStream"><i class="fas fa-phone"></i></button>
+      <button class="settings">
+        <i class="fas fa-cog"></i>
+        <div class="settingsOptions">
+          <div class="screenSplit"><i class="fas fa-columns"></i></div>
+          <div class="screenMin"><i class="fas fa-object-group"></i></div>
+          <div class="screenMax"><i class="far fa-window-maximize"></i></div>
+        </div>
+      </button>
+      <button class="handleChat"><i class="fas fa-comments"></i></button>
+    </div>
+
+    <div class="console show">
+      <div class="chatbox">
+        <ul class="messages"></ul>
+        <div class="enterMsg">
+          <input id="msgInput" type="text" autofocus />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
