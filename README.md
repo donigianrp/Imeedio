@@ -6,10 +6,11 @@ Imeedio provides real-time audio and video communication between 2 participants.
 
 #### How to use
 
-There are 2 participants, the host and the guest. The host will begin by navigating to the landing page at [https://imeedio.herokuapp.com](https://imeedio.herokuapp.com).  
- - Clicking "start" will create a custom room. The host will be provided a shareable url and a button to enter.  
- - They may share that room link to the guest in any manner they want (ex: email). Host must enter room and wait for guest to appear.  
- - Guest will navigate to room through the url and be prompted to hit the "call" button. This will initiate chat.
+There are 2 participants, the host and the guest. The host will begin by navigating to the landing page at [https://imeedio.herokuapp.com](https://imeedio.herokuapp.com).
+
+- Clicking "start" will create a custom room. The host will be provided a shareable url and a button to enter.
+- They may share that room link to the guest in any manner they want (ex: email). Host must enter room and wait for guest to appear.
+- Guest will navigate to room through the url and be prompted to hit the "call" button. This will initiate chat.
 
 #### Features
 

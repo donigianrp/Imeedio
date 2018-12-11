@@ -11,6 +11,19 @@ app.use(bodyParser.json());
 const users = {};
 let rooms = {};
 
+function generateRoomID() {
+  let time = String(Date.now());
+  return (
+    Math.random()
+      .toString(36)
+      .substring(2, 6) +
+    time.slice(time.length - 4, time.length) +
+    Math.random()
+      .toString(36)
+      .substring(2, 6)
+  );
+}
+
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", function(req, res) {
@@ -36,8 +49,12 @@ app.get("/:roomid", function(req, res) {
 });
 
 app.post("/", function(req, res) {
-  rooms[req.body.room] = [];
-  res.send({ msg: `${req.body.room} has been created.` });
+  let roomURL = generateRoomID();
+  while (rooms[roomURL]) {
+    roomURL = generateRoomID();
+  }
+  rooms[roomURL] = [];
+  res.send({ roomURL });
 });
 
 io.on("connection", function(socket) {

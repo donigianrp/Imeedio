@@ -17,8 +17,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const messages = document.querySelector(".messages");
   const handleChat = document.querySelector(".handleChat");
   const msgConsole = document.querySelector(".console");
-  const roomURL = document.querySelector(".roomURL");
-  const copyURL = document.querySelector(".copyURL");
   let remoteVideo;
   let remoteVidContainer;
   let localSetting = "secondary";
@@ -42,9 +40,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     ]
   };
-  const { pathname, href } = window.location;
+  const { pathname } = window.location;
   let room = pathname.replace("/", "");
   let username;
+  console.log(room);
 
   function createRemote() {
     placeholder.parentNode.removeChild(placeholder);
@@ -210,20 +209,40 @@ document.addEventListener("DOMContentLoaded", function(event) {
   // Toggle Video & Audio Settings
 
   [handleAudio, handleVideo, handleChat].forEach((button, idx) => {
-    button.addEventListener("click", e => {
+    let strikeClass;
+    if (idx === 0) {
+      strikeClass = ".handleAudio .strike";
+    } else if (idx === 1) {
+      strikeClass = ".handleVideo .strike";
+    } else {
+      strikeClass = ".handleChat .strike";
+    }
+    button.addEventListener("click", () => {
       let btnCtrl;
-      let currentSrc = e.currentTarget.children[0].src;
-      console.log(currentSrc);
       if (idx === 2) {
-        btnCtrl = currentSrc.match("darkgrey");
+        btnCtrl = handleChat.children.length === 1;
       } else {
         btnCtrl = localVideo.srcObject.getTracks()[idx].enabled;
       }
 
       if (btnCtrl) {
-        e.currentTarget.children[0].src = currentSrc.replace("darkgrey", "red");
+        let strike = document.createElement("DIV");
+        strike.classList.add("strike");
+        button.appendChild(strike);
+
+        button.style.backgroundColor = "#666";
+        button.style.color = "#d3373f";
+        button.style.marginTop = "4px";
+        button.style.boxShadow = "none";
       } else {
-        e.currentTarget.children[0].src = currentSrc.replace("red", "darkgrey");
+        let strike = document.querySelector(strikeClass);
+        strike.parentNode.removeChild(strike);
+
+        button.style.backgroundColor = "#6e78fc";
+        button.style.color = "#fff";
+        button.style.marginTop = "3px";
+        button.style.boxShadow = "1px 1px 2px #000";
+        button.classList.remove("strike");
       }
       if (idx !== 2) {
         localVideo.srcObject.getTracks()[idx].enabled = !btnCtrl;
@@ -328,20 +347,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if (e.key == "Enter") {
       handleMessage(e);
     }
-  });
-
-  // Copy URL / Send Email URL
-
-  roomURL.value = href;
-
-  function copy() {
-    roomURL.select();
-    document.execCommand("copy");
-  }
-
-  copyURL.addEventListener("click", e => {
-    e.stopPropagation();
-    console.log(roomURL.value);
-    copy();
   });
 });
