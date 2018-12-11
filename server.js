@@ -59,24 +59,21 @@ app.post("/", function(req, res) {
 
 io.on("connection", function(socket) {
   socket.on("setSocketId", function(data) {
-    const userId = socket.id;
-    console.log(`User - ${socket.id} - connected to - ${data.room}`);
+    const username = socket.id;
+    console.log(`User - ${username} - connected to - ${data.room}`);
 
-    rooms[data.room].push(userId);
-    users[userId] = { room: data.room };
+    rooms[data.room].push(username);
+    users[username] = { room: data.room };
     if (rooms[data.room].length === 2) {
       console.log("call button");
       console.log(rooms[data.room]);
       socket.emit("call button");
-      // rooms[data.room].forEach(id => {
-      //   socket.to(id).emit("call button");
-      // });
     }
   });
 
   socket.on("messages", function(data) {
     rooms[data.room].forEach(id => {
-      socket.to(id).emit("messages", data.msg);
+      socket.to(id).emit("messages", data);
     });
   });
 

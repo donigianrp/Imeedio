@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const waiting = document.querySelector(".waiting");
   const msgInput = document.querySelector("#msgInput");
   const messages = document.querySelector(".messages");
+  const submitMsg = document.querySelector(".submitMsg");
   const handleChat = document.querySelector(".handleChat");
   const msgConsole = document.querySelector(".console");
   const roomURL = document.querySelector(".roomURL");
@@ -124,17 +125,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     remoteVideo.srcObject = event.streams[0];
   }
 
-  // Set username / handle connection stage UI
-  fetch("/rooms")
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      // username = data[room].length === 0 ? "Host" : "Guest";
-      // if (username === "Guest") {
-      //   waiting.innerText = "waiting for connection...";
-      // }
-    });
-
   // Create Local Video/Audio Stream
 
   navigator.mediaDevices
@@ -149,7 +139,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   socket.emit("setSocketId", { room: room });
   socket.on("call button", () => {
-    waiting.innerText = "press call to connect...";
+    let callImg = document.createElement("IMG");
+    callImg.src = "/images/darkgrey_call_end_2x.png";
+    callImg.style.padding = "0 10px";
+    waiting.innerText = "";
+    waiting.style.fontSize = "24px";
+    var beginText = document.createTextNode("Press");
+    var endText = document.createTextNode("to connect.");
+    waiting.appendChild(beginText);
+    waiting.appendChild(callImg);
+    waiting.appendChild(endText);
+    document.querySelector(".infoContainer").style.display = "none";
     callBtn.classList.add("show");
   });
 
@@ -305,7 +305,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   // Chatbox Settings
 
-  socket.on("messages", function(msg) {
+  socket.on("messages", function(data) {
+    let msg = `You: ${data.msg}`;
     newMessage(msg);
   });
 
@@ -318,16 +319,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   function handleMessage(event) {
     if (msgInput.value === "") return;
-    const msg = `${username}: ${msgInput.value}`;
+    const msg = msgInput.value;
     msgInput.value = "";
-    newMessage(msg);
-    socket.emit("messages", { msg, room });
+    newMessage(`Me: ${msg}`);
+    socket.emit("messages", { msg, room, username });
   }
 
   msgInput.addEventListener("keypress", function(e) {
     if (e.key == "Enter") {
       handleMessage(e);
     }
+  });
+
+  submitMsg.addEventListener("click", function(e) {
+    handleMessage(e);
   });
 
   // Copy URL / Send Email URL
@@ -341,7 +346,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   copyURL.addEventListener("click", e => {
     e.stopPropagation();
-    console.log(roomURL.value);
     copy();
+    anime
+      .timeline()
+      .add({
+        targets: ".copyFlag",
+        opacity: [0, 1],
+        duration: 300,
+        easing: "easeInOutCubic"
+      })
+      .add({
+        targets: ".copyFlag",
+        opacity: [1, 0],
+        offset: "+=2000",
+        duration: 1000,
+        easing: "easeInOutCubic"
+      });
   });
 });

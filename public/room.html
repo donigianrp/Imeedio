@@ -33,11 +33,9 @@
       <div class="placeholder">
         <div class="waiting">You</div>
         <div class="infoContainer">
+          <div class="copyFlag">Copied!</div>
           <div class="roomURLWrapper">
             <input class="roomURL" size="1" />
-            <!--
-              <div class="roomURL">http://www.imeedio.com/494x4290goio</div>
-            -->
             <div class="copyURL">copy</div>
           </div>
           <div class="guestEmail">
@@ -62,9 +60,9 @@
       <button class="settings">
         <img src="/images/darkgrey_settings.png" alt="call" />
         <div class="settingsOptions">
-          <div class="screenSplit"><i class="fas fa-columns"></i></div>
-          <div class="screenMin"><i class="fas fa-object-group"></i></div>
-          <div class="screenMax"><i class="far fa-window-maximize"></i></div>
+          <div class="screenSplit"><img class="settingsIcon" src="/images/darkgrey_screen_orientation_split.png" alt="split" /></i></div>
+          <div class="screenMin"><img class="settingsIcon" src="/images/darkgrey_screen_orientation_pip.png" alt="pip" /></div>
+          <div class="screenMax"><img class="settingsIcon" src="/images/darkgrey_screen_orientation_full.png" alt="full" /></div>
         </div>
       </button>
       <button class="handleChat">
@@ -77,6 +75,7 @@
         <ul class="messages"></ul>
         <div class="enterMsg">
           <input id="msgInput" type="text" autofocus />
+          <div class="submitMsg">Send</div>
         </div>
       </div>
     </div>

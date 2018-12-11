@@ -194,6 +194,17 @@ video[data-view="half"] {
   color: #666;
 }
 
+.copyFlag {
+  position: absolute;
+  top: -20px;
+  left: 100px;
+  padding: 5px 10px;
+  background: #000;
+  color: #fff;
+  opacity: 0;
+  border-radius: 10px;
+}
+
 .copyURL {
   padding: 3px;
   border-radius: 2px;
@@ -201,6 +212,10 @@ video[data-view="half"] {
   margin: 20px 10px;
   cursor: pointer;
   color: #fff;
+}
+
+.copyURL:hover {
+  background: #12807f;
 }
 
 .roomURL {
@@ -213,9 +228,6 @@ video[data-view="half"] {
   outline: none;
   height: 20px;
   font-family: sans-serif;
-  /* font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, “Roboto”, “Oxygen”,
-    “Ubuntu”, “Cantarell”, “Fira Sans”, “Droid Sans”, “Helvetica Neue”,
-    sans-serif; */
 }
 
 .guestEmail {
@@ -235,8 +247,8 @@ video[data-view="half"] {
   position: fixed;
   bottom: 80px;
   left: 0;
-  width: 380px;
-  z-index: 3;
+  width: 400px;
+  z-index: 5;
   display: none;
 }
 
@@ -252,7 +264,7 @@ video[data-view="half"] {
   padding: 5px;
   margin: 5px;
   height: 300px;
-  width: 100%;
+  width: 95%;
   overflow: auto;
   z-index: 3;
   box-sizing: border-box;
@@ -261,7 +273,7 @@ video[data-view="half"] {
 .messages li {
   list-style-type: none;
   padding: 2px 0;
-  font-size: 14px;
+  font-size: 16px;
   color: #e2e2e2;
 }
 
@@ -274,8 +286,9 @@ video[data-view="half"] {
 #msgInput {
   width: 100%;
   height: 20px;
-  font-size: 14px;
+  font-size: 16px;
   padding-left: 10px;
+  margin: 10px 5px 0 0;
   border: none;
   border-bottom: 1px solid #e2e2e2;
   color: #e2e2e2;
@@ -283,24 +296,22 @@ video[data-view="half"] {
 }
 
 #msgInput:focus,
-#msgSubmit:focus,
 .callBtn:focus,
 .endStream:focus {
   outline: none;
 }
 
-#msgSubmit {
-  width: 75px;
-  height: 35px;
-  border-radius: 5px;
-  margin: 0 5px;
-  font-size: 16px;
+.submitMsg {
+  padding: 10px;
+  background: #000;
+  color: #fff;
   cursor: pointer;
-  border: none;
+  text-transform: uppercase;
 }
 
-#msgSubmit:hover {
-  color: tomato;
+.submitMsg:hover {
+  background: #fff;
+  color: #000;
 }
 
 .controlWrapper {
@@ -369,6 +380,11 @@ video[data-view="half"] {
 .settingsOptions div:hover {
   background: #e2e2e2;
   color: #666;
+}
+
+.settingsOptions .settingsIcon {
+  height: 25px;
+  width: auto;
 }
 
 @media screen and (max-width: 900px) {
