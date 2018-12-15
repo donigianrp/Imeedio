@@ -3,6 +3,7 @@ const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const bodyParser = require("body-parser");
+const nodemailer = require("nodemailer");
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,6 +23,25 @@ function generateRoomID() {
       .toString(36)
       .substring(2, 6)
   );
+}
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "imeedio.chat@gmail.com",
+    pass: "d0nigsp3sti!"
+  }
+});
+
+function mailOptions(email, url) {
+  return {
+    from: "imeedio.chat@gmail.com",
+    to: `${email}`,
+    subject: "You have been invited to chat on Imeedio.", // Subject line
+    html: `<p>Hello from Imeedio!</p>
+           <p>Please click below to enter your chat.</p>
+           <a href="${url}">${url}</a>`
+  };
 }
 
 app.use(express.static(__dirname + "/public"));
@@ -57,30 +77,42 @@ app.post("/", function(req, res) {
   res.send({ roomURL });
 });
 
-io.on("connection", function(socket) {
+io.on("connection", socket => {
   socket.on("setSocketId", function(data) {
     const username = socket.id;
     console.log(`User - ${username} - connected to - ${data.room}`);
 
-    rooms[data.room].push(username);
-    users[username] = { room: data.room };
-    if (rooms[data.room].length === 2) {
-      console.log("call button");
-      console.log(rooms[data.room]);
-      socket.emit("call button");
+    if (rooms[data.room]) {
+      rooms[data.room].push(username);
+      users[username] = { room: data.room };
+      if (rooms[data.room].length === 2) {
+        console.log("call button");
+        console.log(rooms[data.room]);
+        socket.emit("call button");
+      }
     }
   });
 
-  socket.on("messages", function(data) {
+  socket.on("messages", data => {
     rooms[data.room].forEach(id => {
       socket.to(id).emit("messages", data);
     });
   });
 
-  socket.on("send-data", function(data) {
+  socket.on("send-data", data => {
     data.dataObj["callerId"] = socket.id;
     rooms[data.room].forEach(id => {
       if (socket.id !== id) socket.to(id).emit("receive-data", data.dataObj);
+    });
+  });
+
+  socket.on("pass email", data => {
+    transporter.sendMail(mailOptions(data.email, data.url), function(
+      err,
+      info
+    ) {
+      if (err) console.log(err);
+      else console.log(info);
     });
   });
 

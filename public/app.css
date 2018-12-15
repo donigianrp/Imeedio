@@ -1,5 +1,7 @@
 html,
 body {
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, “Roboto”, “Oxygen”,
@@ -9,8 +11,15 @@ body {
 
 /* index */
 
+.main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .startContainer {
-  margin: 266px auto;
   height: 65px;
   width: 405px;
   border-radius: 70px;
@@ -160,7 +169,7 @@ video[data-view="half"] {
   margin: 0;
   padding: 0;
   position: relative;
-  width: 50vw;
+  width: 50%;
   height: 100%;
   z-index: 5;
   background: #f4f4f4;
@@ -241,6 +250,19 @@ video[data-view="half"] {
   width: auto;
 }
 
+#enterEmail {
+  width: 200px;
+  height: 25px;
+}
+
+.submitEmail {
+  background: #666;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 10px;
+  display: inline-block;
+  cursor: pointer;
+}
 /* window-maximize, object-group, columns*/
 
 .console {
@@ -317,34 +339,38 @@ video[data-view="half"] {
 .controlWrapper {
   position: fixed;
   display: flex;
-  bottom: 30px;
-  left: calc(50% - 165px);
+  bottom: 50px;
+  left: calc(50% - 170px);
   z-index: 5;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #666;
-  padding: 5px 20px;
+  padding: 11px 20px;
   border-radius: 50px;
-  width: 250px;
+  width: 310px;
 }
 
 .controlWrapper button {
   position: relative;
   cursor: pointer;
-  border: none;
+  border: 1px solid #fff;
+  border-radius: 50px;
   z-index: 5;
   color: #fff;
   display: none;
   outline: none;
-  padding: 10px 10px;
+  padding: 18px;
   margin: 0;
-  height: 30px;
   box-sizing: content-box;
 }
 
+.controlWrapper button:hover {
+  border: 1px solid #e2e2e2;
+}
+
 .controlWrapper button img {
-  width: auto;
-  height: 100%;
+  width: 24px;
+  height: 24px;
 }
 
 .controlWrapper .handleChat,
@@ -383,8 +409,20 @@ video[data-view="half"] {
 }
 
 .settingsOptions .settingsIcon {
-  height: 25px;
+  height: 30px;
   width: auto;
+}
+
+.toolTip {
+  position: absolute;
+  bottom: 75px;
+  left: -17px;
+  width: 90px;
+  background: #000;
+  color: #e2e2e2;
+  border-radius: 20px;
+  padding: 5px 10px;
+  display: none;
 }
 
 @media screen and (max-width: 900px) {

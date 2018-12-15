@@ -209,31 +209,68 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   // Toggle Video & Audio Settings
 
+  function handleToolTip(target, initial = false) {
+    let tool = target.dataset.tool;
+    target.children[1].style.display = "block";
+    if (tool === "audio") {
+      if (target.dataset.active === "true") {
+        target.children[1].innerText = "Turn audio off";
+      } else {
+        target.children[1].innerText = "Turn audio on";
+      }
+    } else if (tool === "video") {
+      if (target.dataset.active === "true") {
+        target.children[1].innerText = "Turn video off";
+      } else {
+        target.children[1].innerText = "Turn video on";
+      }
+    } else if (tool === "chat") {
+      if (target.dataset.active === "true") {
+        target.children[1].innerText = "Close chat";
+      } else {
+        target.children[1].innerText = "Open chat";
+      }
+    }
+  }
+
   [handleAudio, handleVideo, handleChat].forEach((button, idx) => {
     button.addEventListener("click", e => {
       let btnCtrl;
       let currentSrc = e.currentTarget.children[0].src;
-      console.log(currentSrc);
+      button.dataset.active =
+        button.dataset.active === "true" ? "false" : "true";
+
       if (idx === 2) {
-        btnCtrl = currentSrc.match("darkgrey");
+        msgConsole.classList.toggle("show");
       } else {
         btnCtrl = localVideo.srcObject.getTracks()[idx].enabled;
+        localVideo.srcObject.getTracks()[idx].enabled = !btnCtrl;
       }
 
-      if (btnCtrl) {
+      if (btnCtrl && idx !== 2) {
         e.currentTarget.children[0].src = currentSrc.replace("darkgrey", "red");
-      } else {
+      } else if (!btnCtrl && idx !== 2) {
         e.currentTarget.children[0].src = currentSrc.replace("red", "darkgrey");
       }
-      if (idx !== 2) {
-        localVideo.srcObject.getTracks()[idx].enabled = !btnCtrl;
-      } else {
-        msgConsole.classList.toggle("show");
-      }
+
+      handleToolTip(e.currentTarget);
     });
   });
 
   handleChat.click();
+  handleChat.children[1].style.display = "none";
+
+  document.querySelectorAll(".controlWrapper button").forEach(btn => {
+    btn.addEventListener("mouseenter", e => {
+      handleToolTip(e.currentTarget);
+    });
+  });
+
+  document.querySelectorAll(".controlWrapper button").forEach(btn => {
+    btn.addEventListener("mouseleave", e => {
+      e.currentTarget.children[1].style.display = "none";
+    });
+  });
 
   // Visual Display Settings
 
@@ -362,5 +399,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         duration: 1000,
         easing: "easeInOutCubic"
       });
+  });
+
+  document.querySelector(".submitEmail").addEventListener("click", () => {
+    const email = document.getElementById("enterEmail");
+    socket.emit("pass email", { email: email.value, url: href });
+    email.value = "";
   });
 });

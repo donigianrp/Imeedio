@@ -31,6 +31,10 @@
         </div>
       </div>
       <div class="placeholder">
+        <div class="emailInput">
+          <input id="enterEmail" />
+          <div class="submitEmail">Send</div>
+        </div>
         <div class="waiting">You</div>
         <div class="infoContainer">
           <div class="copyFlag">Copied!</div>
@@ -45,19 +49,22 @@
       </div>
     </div>
     <div class="controlWrapper">
-      <button class="handleAudio">
+      <button class="handleAudio" data-tool="audio" data-active="true">
         <img src="/images/darkgrey_mic_2x.png" alt="mic" />
+        <div class="toolTip">Turn audio off</div>
       </button>
-      <button class="handleVideo">
+      <button class="handleVideo" data-tool="video" data-active="true">
         <img src="/images/darkgrey_videocam_2x.png" alt="cam" />
+        <div class="toolTip">Turn video off</div>
       </button>
       <button class="callBtn">
         <img src="/images/darkgrey_call_end_2x.png" alt="call" />
       </button>
-      <button class="endStream">
+      <button class="endStream" data-tool="end call">
         <img src="/images/red_call_end_2x.png" alt="end call" />
+        <div class="toolTip">End call</div>
       </button>
-      <button class="settings">
+      <button class="settings" data-tool="settings">
         <img src="/images/darkgrey_settings.png" alt="call" />
         <div class="settingsOptions">
           <div class="screenSplit"><img class="settingsIcon" src="/images/darkgrey_screen_orientation_split.png" alt="split" /></i></div>
@@ -65,8 +72,9 @@
           <div class="screenMax"><img class="settingsIcon" src="/images/darkgrey_screen_orientation_full.png" alt="full" /></div>
         </div>
       </button>
-      <button class="handleChat">
+      <button class="handleChat" data-tool="chat" data-active="false">
         <img src="/images/darkgrey_chat_bubble_2x.png" alt="chat bubble" />
+        <div class="toolTip">Open chat</div>
       </button>
     </div>
 
