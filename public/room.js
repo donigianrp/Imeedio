@@ -1,3 +1,7 @@
+const { pathname, href } = window.location;
+let room = pathname.replace("/", "");
+let username;
+
 document.addEventListener("DOMContentLoaded", function(event) {
   const localVideo = document.querySelector(".localVideo");
   const localVidContainer = document.querySelector(".vidContainer");
@@ -43,9 +47,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     ]
   };
-  const { pathname, href } = window.location;
-  let room = pathname.replace("/", "");
-  let username;
+
+  // const { pathname, href } = window.location;
+  // let room = pathname.replace("/", "");
+  // let username;
 
   function createRemote() {
     placeholder.parentNode.removeChild(placeholder);
@@ -226,9 +231,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
     } else if (tool === "chat") {
       if (target.dataset.active === "true") {
-        target.children[1].innerText = "Close chat";
-      } else {
         target.children[1].innerText = "Open chat";
+      } else {
+        target.children[1].innerText = "Close chat";
       }
     }
   }

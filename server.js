@@ -86,8 +86,6 @@ io.on("connection", socket => {
       rooms[data.room].push(username);
       users[username] = { room: data.room };
       if (rooms[data.room].length === 2) {
-        console.log("call button");
-        console.log(rooms[data.room]);
         socket.emit("call button");
       }
     }
