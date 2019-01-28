@@ -150,11 +150,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     waiting.innerText = "";
     waiting.style.fontSize = "24px";
     var beginText = document.createTextNode("Press");
-    var endText = document.createTextNode("to connect.");
+    var endText = document.createTextNode(" below to connect.");
     waiting.appendChild(beginText);
     waiting.appendChild(callImg);
     waiting.appendChild(endText);
     document.querySelector(".infoContainer").style.display = "none";
+    document.querySelector(".emailInput").style.display = "none";
     callBtn.classList.add("show");
   });
 

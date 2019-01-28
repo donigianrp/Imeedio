@@ -183,7 +183,7 @@ video[data-view="half"] {
 .waiting {
   font-size: 200px;
   text-transform: uppercase;
-  margin: 10px 0 0 0;
+  margin-top: 200px;
 }
 
 .infoContainer {
@@ -203,7 +203,7 @@ video[data-view="half"] {
 
 .roomURLWrapper {
   display: flex;
-  width: 340px;
+  width: 360px;
   height: 100%;
   color: #666;
 }
@@ -233,8 +233,8 @@ video[data-view="half"] {
 }
 
 .roomURL {
-  width: 260px;
-  margin: 22px 0 0 10px;
+  width: 300px;
+  margin-top: 22px;
   border: none;
   padding: 0;
   font-size: 14px;
